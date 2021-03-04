@@ -1,0 +1,28 @@
+{
+"Songs": [
+    {
+      "id": 1,
+      "title": "title 1",
+      "artist": "artist 1",
+      "price": 11,
+      "category": "Pops"
+
+    },
+    {
+      "id": 2,
+      "title": "title 2",
+      "artist": "artist 2",
+      "price": 22,
+      "category": "Hip Hop"
+
+    },
+    {
+      "id": 3,
+      "title": "title 3",
+      "artist": "artist 3",
+      "price": 3,
+      "category": "Country"
+
+    }
+  ]
+}
