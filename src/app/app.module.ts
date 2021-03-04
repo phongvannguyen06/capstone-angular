@@ -5,6 +5,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 
 import { AppComponent } from './app.component';
@@ -23,7 +25,8 @@ import { HomeComponent } from './home/home.component';
     Ng2SearchPipeModule,
     Ng2OrderModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

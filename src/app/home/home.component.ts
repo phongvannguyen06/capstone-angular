@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Song } from '../model/Song';
 import { DataService } from '../data.service';
+import { faSort } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,10 @@ export class HomeComponent implements OnInit {
   songs: Song[] = [];
   songTitle: any;
 
+  itemsPP = 5;
+  p: number = 1;
+  faSort = faSort;
+
   constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
@@ -21,6 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   Search() {
+    this.p = 1;
     if (this.songTitle == "") {
       this.ngOnInit();
     } else {
@@ -28,6 +34,13 @@ export class HomeComponent implements OnInit {
         return s.title.toLocaleLowerCase().match(this.songTitle.toLocaleLowerCase());
       })
     }
+  }
+
+  key: string = 'id';
+  reverse: boolean = false;
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 
 }
