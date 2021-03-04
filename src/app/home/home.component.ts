@@ -43,4 +43,8 @@ export class HomeComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
+  setItemsPerPage(entries: number) {
+    this.itemsPP = entries;
+  }
+
 }

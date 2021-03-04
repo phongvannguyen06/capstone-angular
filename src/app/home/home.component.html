@@ -5,12 +5,12 @@
 <div class="row mb-3">
   <div class="dropdown col-md-2">
     <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Show Entries
+      {{itemsPP}} items per page
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" >5</a>
-      <a class="dropdown-item" >10</a>
-      <a class="dropdown-item" >15</a>
+      <a class="dropdown-item" (click)="setItemsPerPage(5)">5</a>
+      <a class="dropdown-item" (click)="setItemsPerPage(10)">10</a>
+      <a class="dropdown-item" (click)="setItemsPerPage(15)">15</a>
     </div>
   </div>
 
