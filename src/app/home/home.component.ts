@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Song } from '../model/Song';
 import { DataService } from '../data.service';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,7 +12,7 @@ export class HomeComponent implements OnInit {
   songs: Song[] = [];
   songTitle: any;
 
-  itemsPP = 5;
+  itemsPP = 10;
   p: number = 1;
   faSort = faSort;
 
@@ -27,13 +26,14 @@ export class HomeComponent implements OnInit {
 
   Search() {
     this.p = 1;
-    if (this.songTitle == "") {
+    if (this.songTitle === "" || this.songs.length === 0) {
       this.ngOnInit();
     } else {
       this.songs = this.songs.filter(s => {
         return s.title.toLocaleLowerCase().match(this.songTitle.toLocaleLowerCase());
       })
     }
+    console.log(this.songs);
   }
 
   key: string = 'id';

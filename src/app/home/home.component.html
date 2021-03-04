@@ -1,5 +1,5 @@
-<h1 class="pt-5">All Products</h1>
-<h5>Check out all the awesome products available now!</h5>
+<h1 class="pt-5">All Songs</h1>
+<h5>Check out all the awesome songs available now!</h5>
 <hr />
 
 <div class="row mb-3">
@@ -14,10 +14,13 @@
     </div>
   </div>
 
-  <div class="col-10">
-    <input type="text" class="form-control bg-light" name="songTitle" [(ngModel)]="songTitle" (ngModelChange)="Search()" placeholder="Search your favorite song" size="4">
+  <div class="col-md-4 offset-md-6">
+    <input id="search" type="text" class="form-control bg-light" name="songTitle" [(ngModel)]="songTitle" (ngModelChange)="Search()" placeholder="&#x266C; Search your favorite song &#x266B;" size="4">
   </div>
+
 </div>
+
+
 
 <table class="table table-bordered">
   <thead>
