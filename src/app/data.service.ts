@@ -11,18 +11,12 @@ import {map} from 'rxjs/operators';
 )
 export class DataService {
 
-
-  // cart: Array<Song> = new Array();
-  // cart = new Array<CartItem>();
   cart = new Array<CartItem>();
   observableCart = new BehaviorSubject<CartItem[]>(null);
-  // cart: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>(null);
 
   itemIsAddedToCart = new EventEmitter();
 
   constructor(private http: HttpClient) {
-    // this.cart = new Array<CartItem>();
-    // this.observableCart = <BehaviorSubject<CartItem[]>>new BehaviorSubject([]);
   }
 
   getSongs() : Observable<Array<Song>> {
@@ -70,21 +64,29 @@ export class DataService {
     return this.http.delete(environment.restUrl + '/api/songs/' + id);
   }
 
+  verifyStockInDatabase(cart: CartItem[]) {
+    console.log(cart, 'SERVICE');
+    return this.http.post<boolean>(environment.restUrl + '/api/songs/verify/', cart);
+  }
+
   addToCart(song: Song) {
     const newCartItem = new CartItem();
 
     if (this.cart.length === 0 || (this.cart.filter(data => data.songId === song.id).length === 0)) {
       newCartItem.songId = song.id;
       newCartItem.songTitle = song.title;
+      newCartItem.songArtist = song.artist;
+      newCartItem.songPrice = song.price;
       newCartItem.quantity = 1;
+      newCartItem.totalCost = newCartItem.quantity * newCartItem.songPrice;
       this.cart.push(newCartItem);
     } else {
       let index = this.cart.findIndex(i => i.songId === song.id);
       this.cart[index].quantity += 1;
+      this.cart[index].totalCost = this.cart[index].quantity * this.cart[index].songPrice;
     }
     this.observableCart.next(this.cart);
     this.itemIsAddedToCart.emit();
-    console.log(this.observableCart.value);
   }
 
   getCart() : Observable<CartItem[]>{
