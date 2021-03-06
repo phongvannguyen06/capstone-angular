@@ -32,4 +32,10 @@ export class AuthService {
     const payload = atob(encodedPayload);
     return JSON.parse(payload).role;
   }
+
+  logOut() {
+    this.isAuthenticated = false;
+    this.jwtToken = null;
+    this.authenticationResultEvent.emit(false);
+  }
 }

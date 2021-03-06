@@ -27,13 +27,19 @@
     <div class="form-inline my-2 my-lg-0">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" (click)="navigateToCart()">Cart({{itemsInCart}})</a>
+          <a class="nav-link" (click)="navigateToCart()" *ngIf="!isLoggedIn">Cart({{itemsInCart}})</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">Register</a>
+          <a class="nav-link" *ngIf="!isLoggedIn">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">Login</a>
+          <a class="nav-link" (click)="navigateToLogin()" *ngIf="!isLoggedIn">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isLoggedIn">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" *ngIf="isLoggedIn" (click)="logOut()">Log Out</a>
         </li>
       </ul>
     </div>
