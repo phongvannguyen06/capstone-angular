@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
 import { DataService } from '../data.service';
 import { CartItem } from '../model/CartItem';
 import { Song } from '../model/Song';
@@ -15,7 +16,8 @@ export class ShoppingCartComponent implements OnInit {
   tax: number;
   totalAfterTax: number;
   songs: Array<Song>;
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.dataService.getCart().subscribe(

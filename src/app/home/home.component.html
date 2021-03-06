@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-sm btn-primary mp-0 col-md-1" (click)="addNewSong()">Add Song</button>
+  <button type="button" class="btn btn-sm btn-primary mp-0 col-md-1" (click)="addNewSong()" *ngIf="isAdminUser">Add Song</button>
 
   <div class="col-md-4 offset-md-5">
     <input id="search" type="text" class="form-control bg-light" name="songTitle" [(ngModel)]="songTitle" (ngModelChange)="Search()" placeholder="&#x266C; Search your favorite song &#x266B;" size="4">
@@ -42,8 +42,8 @@
       <td>{{song.genre.genre}}</td>
       <td class="d-flex px-0">
         <a (click)="addSongToCart(song)"><fa-icon [icon]="faCart" class="mx-2"></fa-icon></a>
-        <a (click)="editSong(song.id)"><fa-icon [icon]="faEdit" class="mx-2"></fa-icon></a>
-        <a (click)="deleteSong(song.id)" ><fa-icon [icon]="faTrash" class="mx-2"></fa-icon></a>
+        <a (click)="editSong(song.id)"><fa-icon [icon]="faEdit" class="mx-2" *ngIf="isAdminUser"></fa-icon></a>
+        <a (click)="deleteSong(song.id)" ><fa-icon [icon]="faTrash" class="mx-2" *ngIf="isAdminUser"></fa-icon></a>
       </td>
     </tr>
   </tbody>

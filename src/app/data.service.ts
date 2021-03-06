@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Category, Song } from './model/Song';
 import { CartItem } from './model/CartItem';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import {map} from 'rxjs/operators';
 
@@ -45,8 +45,9 @@ export class DataService {
     );
   }
 
-  addSong(song: Song) : Observable<Song> {
-    return this.http.post<Song>(environment.restUrl + '/api/songs', song);
+  addSong(song: Song, token: string) : Observable<Song> {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer ' + token);
+    return this.http.post<Song>(environment.restUrl + '/api/songs', song, {headers});
   }
 
   getSong(id: number) : Observable<Song> {
@@ -91,6 +92,12 @@ export class DataService {
 
   getCart() : Observable<CartItem[]>{
     return this.observableCart.asObservable();
+  }
+
+  validateUser(name: string, password: string) : Observable<{result: string}> {
+    const authData = btoa(`${name}:${password}`);
+    const headers = new HttpHeaders().append('Authorization', 'Basic ' + authData);
+    return this.http.get<{result: string}>(environment.restUrl + '/api/auth/validate', {headers: headers});
   }
 
 }

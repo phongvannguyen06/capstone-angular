@@ -12,10 +12,13 @@ import { HomeComponent } from './home/home.component';
 import { EditSongComponent } from './home/edit-song/edit-song.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { LoginComponent } from './login/login.component';
+import { AuthRouteGuardService } from './auth-route-guard.service'
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'cart', component: ShoppingCartComponent}
+  {path: 'cart', component: ShoppingCartComponent, canActivate : [AuthRouteGuardService]},
+  {path: 'login', component: LoginComponent}
 ]
 
 @NgModule({
@@ -24,7 +27,8 @@ const routes: Routes = [
     MenuComponent,
     HomeComponent,
     EditSongComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

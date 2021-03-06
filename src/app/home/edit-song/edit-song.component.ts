@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 import { DataService } from 'src/app/data.service';
 import { Category, Song } from 'src/app/model/Song';
 
@@ -20,7 +21,8 @@ export class EditSongComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -32,16 +34,14 @@ export class EditSongComponent implements OnInit {
   }
 
   onSubmit() {
+    let apiCall =  this.dataService.updateSong(this.song);
     if (this.song.id == null) {
-      this.dataService.addSong(this.song).subscribe((next) => {
-        this.dataChangedEvent.emit();
-        this.router.navigate(['']);
-      });
-    } else {
-      this.dataService.updateSong(this.song).subscribe((next) => {
-        this.router.navigate(['']);
-        this.dataChangedEvent.emit();
-      });
+      apiCall = this.dataService.addSong(this.song, this.authService.jwtToken);
     }
+
+    apiCall.subscribe(() => {
+      this.dataChangedEvent.emit();
+      this.router.navigate(['']);
+    });
   }
 }

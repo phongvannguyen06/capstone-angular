@@ -6,6 +6,7 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
   songTitle: any;
   selectedSong: Song;
   action: string;
+  isAdminUser = false;
 
   @Output()
   dataChangedEvent = new EventEmitter();
@@ -32,7 +34,8 @@ export class HomeComponent implements OnInit {
 
   constructor(public dataService: DataService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.dataService.getSongs().subscribe(next => {
@@ -53,6 +56,10 @@ export class HomeComponent implements OnInit {
         }
       }
     )
+
+    if (this.authService.getRole() == 'ADMIN') {
+      this.isAdminUser = true;
+    }
 
   }
 
