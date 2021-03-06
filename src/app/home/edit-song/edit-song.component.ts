@@ -22,7 +22,7 @@ export class EditSongComponent implements OnInit {
     private dataService: DataService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class EditSongComponent implements OnInit {
   }
 
   onSubmit() {
-    let apiCall =  this.dataService.updateSong(this.song);
+    let apiCall =  this.dataService.updateSong(this.song, this.authService.jwtToken);
     if (this.song.id == null) {
       apiCall = this.dataService.addSong(this.song, this.authService.jwtToken);
     }

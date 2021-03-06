@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { DataService } from '../data.service';
 import { CartItem } from '../model/CartItem';
@@ -17,7 +18,8 @@ export class ShoppingCartComponent implements OnInit {
   totalAfterTax: number;
   songs: Array<Song>;
   constructor(private dataService: DataService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.dataService.getCart().subscribe(
@@ -25,7 +27,7 @@ export class ShoppingCartComponent implements OnInit {
 
         this.cart = next;
         this.cart.forEach(i => this.subtotal += i.totalCost);
-        this.tax = this.subtotal * 0.6;
+        this.tax = this.subtotal * 0.06;
         this.totalAfterTax = this.subtotal + this.tax;
       }
     );
@@ -53,21 +55,7 @@ export class ShoppingCartComponent implements OnInit {
 
   subtractInventory() {
     if (this.verifyIfItemsInStock) {
-      for (let item of this.cart) {
-        for (let song of this.songs) {
-          if (item.songId === song.id) {
-            let newSong = new Song();
-            newSong.id = song.id;
-            newSong.title = song.title;
-            newSong.artist = song.artist;
-            newSong.price = song.price;
-            newSong.quantity = 88;
-            newSong.genre = song.genre;
-            newSong.quantity = song.quantity - newSong.quantity;
-            this.dataService.updateSong(newSong);
-          }
-        }
-      }
+      this.router.navigate(['orderConfirmationpage']);
     }
   }
 

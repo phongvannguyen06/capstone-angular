@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
   }
 
   deleteSong(id: number) {
-    this.dataService.deleteSong(id).subscribe(
+    this.dataService.deleteSong(id, this.authService.jwtToken).subscribe(
       next => {
         this.ngOnInit();
         this.router.navigate(['']);

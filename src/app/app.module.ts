@@ -13,12 +13,16 @@ import { EditSongComponent } from './home/edit-song/edit-song.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { LoginComponent } from './login/login.component';
-import { AuthRouteGuardService } from './auth-route-guard.service'
+import { AuthRouteGuardService } from './auth-route-guard.service';
+import { ProfileComponent } from './profile/profile.component';
+import { OrderConfirmPageComponent } from './order-confirm-page/order-confirm-page.component'
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'cart', component: ShoppingCartComponent, canActivate : [AuthRouteGuardService]},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent},
+  {path: 'orderConfirmationpage', component: OrderConfirmPageComponent}
 ]
 
 @NgModule({
@@ -28,7 +32,9 @@ const routes: Routes = [
     HomeComponent,
     EditSongComponent,
     ShoppingCartComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent,
+    OrderConfirmPageComponent
   ],
   imports: [
     BrowserModule,

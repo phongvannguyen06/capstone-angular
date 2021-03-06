@@ -36,7 +36,7 @@ export class MenuComponent implements OnInit {
   }
 
   navitgateToUserProfile() {
-
+    this.router.navigate(['profile']);
   }
 
   logOut() {

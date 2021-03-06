@@ -57,12 +57,14 @@ export class DataService {
       )
   }
 
-  updateSong(song: Song) : Observable<Song> {
-    return this.http.put<Song>(environment.restUrl + '/api/songs/', song);
+  updateSong(song: Song, token: string) : Observable<Song> {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer ' + token);
+    return this.http.put<Song>(environment.restUrl + '/api/songs/', song, {headers});
   }
 
-  deleteSong(id: number) : Observable<any> {
-    return this.http.delete(environment.restUrl + '/api/songs/' + id);
+  deleteSong(id: number, token: string) : Observable<any> {
+    const headers = new HttpHeaders().append('Authorization', 'Bearer ' + token);
+    return this.http.delete(environment.restUrl + '/api/songs/' + id, {headers});
   }
 
   verifyStockInDatabase(cart: CartItem[]) {
