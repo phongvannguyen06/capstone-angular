@@ -6,18 +6,25 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-
-
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
+import { EditSongComponent } from './home/edit-song/edit-song.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+
+const routes: Routes = [
+  {path: '', component: HomeComponent},
+  {path: 'cart', component: ShoppingCartComponent}
+]
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    HomeComponent
+    HomeComponent,
+    EditSongComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +33,8 @@ import { HomeComponent } from './home/home.component';
     Ng2OrderModule,
     NgxPaginationModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

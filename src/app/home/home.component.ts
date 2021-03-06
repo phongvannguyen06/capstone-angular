@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Song } from '../model/Song';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Category, Song } from '../model/Song';
 import { DataService } from '../data.service';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,17 +15,66 @@ export class HomeComponent implements OnInit {
 
   songs: Song[] = [];
   songTitle: any;
+  selectedSong: Song;
+  action: string;
+
+  @Output()
+  dataChangedEvent = new EventEmitter();
+
+  categories: Category[] = [];
 
   itemsPP = 10;
   p: number = 1;
   faSort = faSort;
+  faCart = faCartPlus;
+  faEdit = faEdit;
+  faTrash = faTrash;
 
-  constructor(public dataService: DataService) { }
+  constructor(public dataService: DataService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.dataService.getSongs().subscribe((response) => {
-      this.songs = response;
+    this.dataService.getSongs().subscribe(next => {
+      this.songs = next;
     });
+
+    this.route.queryParams.subscribe(
+      (params) => {
+        this.action = null;
+        const id = params['id'];
+        if (id) {
+          this.selectedSong = this.songs.find( song => song.id === +id);
+          this.action = params['action'];
+        }
+        if (params['action'] === 'add') {
+          this.selectedSong = new Song();
+          this.action = 'edit';
+        }
+      }
+    )
+
+  }
+
+  editSong(id: number){
+    this.router.navigate([''], {queryParams : { action: 'edit', id: id}});
+  }
+
+  addNewSong(){
+    this.router.navigate([''], {queryParams: {action: 'add'}});
+  }
+
+  deleteSong(id: number) {
+    this.dataService.deleteSong(id).subscribe(
+      next => {
+        this.ngOnInit();
+        this.router.navigate(['']);
+      }
+    )
+  }
+
+  addSongToCart(song: Song) {
+    this.dataService.addToCart(song);
   }
 
   Search() {

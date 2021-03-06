@@ -7,6 +7,7 @@
     <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {{itemsPP}} items per page
     </button>
+
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       <a class="dropdown-item" (click)="setItemsPerPage(5)">5</a>
       <a class="dropdown-item" (click)="setItemsPerPage(10)">10</a>
@@ -14,21 +15,22 @@
     </div>
   </div>
 
-  <div class="col-md-4 offset-md-6">
+  <button type="button" class="btn btn-sm btn-primary mp-0 col-md-1" (click)="addNewSong()">Add Song</button>
+
+  <div class="col-md-4 offset-md-5">
     <input id="search" type="text" class="form-control bg-light" name="songTitle" [(ngModel)]="songTitle" (ngModelChange)="Search()" placeholder="&#x266C; Search your favorite song &#x266B;" size="4">
   </div>
 
 </div>
-
-
-
-<table class="table table-bordered">
+<table class="table">
   <thead>
     <tr>
       <th (click)="sort('title')">Title&nbsp;<fa-icon [icon]="faSort"></fa-icon></th>
       <th (click)="sort('artist')">Artist&nbsp;<fa-icon [icon]="faSort"></fa-icon></th>
       <th (click)="sort('price')">Price &nbsp;<fa-icon [icon]="faSort"></fa-icon></th>
+      <th (click)="sort('quantity')">Quantity&nbsp;<fa-icon [icon]="faSort"></fa-icon></th>
       <th (click)="sort('category')">Category&nbsp;<fa-icon [icon]="faSort"></fa-icon></th>
+      <th>Action(s)</th>
     </tr>
   </thead>
   <tbody>
@@ -36,10 +38,15 @@
       <td>{{song.title}}</td>
       <td>{{song.artist}}</td>
       <td>{{song.price}}</td>
-      <td>{{song.category}}</td>
+      <td>{{song.quantity}}</td>
+      <td>{{song.genre.genre}}</td>
+      <td class="d-flex px-0">
+        <a (click)="addSongToCart(song)"><fa-icon [icon]="faCart" class="mx-2"></fa-icon></a>
+        <a (click)="editSong(song.id)"><fa-icon [icon]="faEdit" class="mx-2"></fa-icon></a>
+        <a (click)="deleteSong(song.id)" ><fa-icon [icon]="faTrash" class="mx-2"></fa-icon></a>
+      </td>
     </tr>
   </tbody>
 </table>
 <pagination-controls class="text-right" (pageChange)="p = $event"></pagination-controls>
-
-<!-- | paginate: {itemsPerPage:2,curentPage:p}; -->
+<app-edit-song *ngIf="action === 'edit'" [song]="selectedSong" (dataChangedEvent)="ngOnInit()"></app-edit-song>

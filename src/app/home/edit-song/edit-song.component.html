@@ -1,0 +1,32 @@
+<h1>{{song?.id == null ? 'Add' : 'Edit'}} Song</h1>
+<form>
+  <div class="row">
+    <div class="form-group col-4">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" [(ngModel)]="song.title" name="title" size="2">
+    </div>
+
+    <div class="form-group col-4">
+      <label for="artist">Arist</label>
+      <input type="text" class="form-control" id="artist" [(ngModel)]="song.artist" name="artist">
+    </div>
+
+    <div class="form-group col-1">
+      <label for="price">price</label>
+      <input type="text" class="form-control" id="price" [(ngModel)]="song.price" name="price">
+    </div>
+
+    <div class="form-group col-1">
+      <label for="quantity">quantity</label>
+      <input type="text" class="form-control" id="quantity" [(ngModel)]="song.quantity" name="quantity">
+    </div>
+
+    <div class="form-group col-2">
+      <label for="genre">genre</label>
+      <select class="form-control" id="genre" [(ngModel)]="song.genre" name="genre">
+        <option *ngFor="let genre of genres" [ngValue]="genre" >{{genre.genre}}</option>
+      </select>
+    </div>
+  </div>
+  <button type="button" class="btn btn-sm btn-primary mp-0"  (click)="onSubmit()">Save</button>
+</form>

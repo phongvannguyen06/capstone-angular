@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private dataService: DataService) { }
+  itemsInCart = 0;
 
   ngOnInit(): void {
+    this.dataService.itemIsAddedToCart.subscribe(
+      next => this.itemsInCart++
+    )
+  }
+
+  navigateToHome() {
+    this.router.navigate(['']);
+  }
+
+  navigateToCart() {
+    this.router.navigate(['cart']);
   }
 
 }
